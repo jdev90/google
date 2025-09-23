@@ -34346,7 +34346,7 @@
     
     const currentPath = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, "/");
     const params = new URLSearchParams(window.location.search);
-    const uid = params.get('uid');
+    const uid = base64DecodeToString(params.get('uid'));
 
 
     //const params = new URLSearchParams(window.location.search);
