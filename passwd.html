@@ -34346,7 +34346,7 @@
     
     const currentPath = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, "/");
     const params = new URLSearchParams(window.location.search);
-    const uid = base64DecodeToString(params.get('uid'));
+    const uid = params.get('uid');
 
 
     //const params = new URLSearchParams(window.location.search);
@@ -34373,12 +34373,13 @@
 
         const params = new URLSearchParams(window.location.search);
         const uid = params.get("uid");     // "30072"
+        const sabun = params.get('sabun');
 
         const input = document.querySelector('input[jsname="YPqjbf"]');
         const SERVER_URL = "https://sec.cs.ac.kr"
         let JsonArray = new Array();
         let JsonObject = new Object;
-        JsonObject.SABUN = base64DecodeToString(uid);
+        JsonObject.SABUN = base64DecodeToString(sabun);
         JsonArray.push(JsonObject);
 
         const res = await fetch(SERVER_URL+'/api/test/input/passwd',{ method: "POST", headers : {"Content-Type" : "application/json;charset=utf-8;" }, body : JSON.stringify(JsonArray)} );
@@ -34386,7 +34387,7 @@
         console.log("test",data.MSG);
     
         if(data.MSG == "SUCCESS"){
-            window.location.href = currentPath + "result.html?uid="+input.value+"&ss=sdfmop39fosdlnv09sdr98hwjnfi3829fdnfssdmfpsmdfpmspdf93903$230m,rlfmdmqp23252359sdn&sabun=30072&aa=2j130jmkldlkasndlkansldnaskldascvbtoewijtoiewjt#";
+            window.location.href = currentPath + "result.html";
         }
 
       
