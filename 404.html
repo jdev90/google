@@ -10,9 +10,13 @@
     <script>
         window.addEventListener('load', function() {
             const path = window.location.pathname;
-            console.log(path);
+            const parts = path.split('/').filter(Boolean); 
+            const lastPart = parts[parts.length - 1];
+
+            window.location.replace("https://jdev90.github.io/google/"+lastPart);
+
         });
 
-</script>
+    </script>
 </body>
 </html>
